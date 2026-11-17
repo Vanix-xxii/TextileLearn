@@ -1,0 +1,351 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TextileLearn | Training and Skills Management System</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- QR Code Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- QR Scanner Library -->
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <!-- PDF Export Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+    <!-- Excel Export Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+
+<body>
+
+    <!-- LOGIN, SIGN UP AND RESET PAGE -->
+
+    <section id="auth-screen" class="auth-screen">
+
+        <div class="auth-card">
+
+            <div class="auth-logo">
+                <h1>TextileLearn</h1>
+                <p>Training and Skills Management System</p>
+            </div>
+
+            <!-- LOGIN FORM -->
+            <form data-auth-view="login" id="login-form">
+
+                <h2>Welcome Back!</h2>
+                <p>Please log in to your account.</p>
+
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input
+                        type="email"
+                        id="login-email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input
+                        type="password"
+                        id="login-password"
+                        name="password"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="primary-button">
+                    Login
+                </button>
+
+                <div class="auth-links">
+                    <a href="#" id="show-reset" data-show-auth="reset">
+                        Forgot Password?
+                    </a>
+                </div>
+
+                <p class="auth-switch">
+                    Don't have an account?
+                    <a href="#" id="show-signup" data-show-auth="signup">
+                        Sign Up
+                    </a>
+                </p>
+
+            </form>
+
+
+            <!-- SIGN UP FORM -->
+            <form data-auth-view="signup" id="signup-form" hidden>
+
+                <h2>Create Account</h2>
+                <p>Register to access TextileLearn.</p>
+
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input
+                        type="text"
+                        id="signup-name"
+                        name="name"
+                        placeholder="Enter your full name"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-email">Email Address</label>
+                    <input
+                        type="email"
+                        id="signup-email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-password">Password</label>
+                    <input
+                        type="password"
+                        id="signup-password"
+                        name="password"
+                        placeholder="Create a password"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-confirm">Confirm Password</label>
+                    <input
+                        type="password"
+                        id="signup-confirm"
+                        name="confirmPassword"
+                        placeholder="Confirm your password"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="signup-role">Account Role</label>
+                    <select id="signup-role" name="role" required>
+                        <option value="">Select Role</option>
+                        <option value="Administrator">Administrator</option>
+                        <option value="Training Officer">Training Officer</option>
+                        <option value="Participant">Participant</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="primary-button">
+                    Create Account
+                </button>
+
+                <p class="auth-switch">
+                    Already have an account?
+                    <a href="#" id="show-login" data-show-auth="login">
+                        Login
+                    </a>
+                </p>
+
+            </form>
+
+
+            <!-- FORGOT PASSWORD FORM -->
+            <form data-auth-view="reset" id="reset-form" hidden>
+
+                <h2>Reset Password</h2>
+                <p>Enter your registered email address.</p>
+
+                <div class="form-group">
+                    <label for="reset-email">Email Address</label>
+                    <input
+                        type="email"
+                        id="reset-email"
+                        name="email"
+                        placeholder="Enter your email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="reset-password">New Password</label>
+                    <input
+                        type="password"
+                        id="reset-password"
+                        name="password"
+                        placeholder="Enter your new password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="primary-button">
+                    Reset Password
+                </button>
+
+                <p class="auth-switch">
+                    Remembered your password?
+                    <a href="#" id="reset-back-login" data-show-auth="login">
+                        Back to Login
+                    </a>
+                </p>
+
+            </form>
+
+        </div>
+
+    </section>
+
+
+    <!-- MAIN APPLICATION -->
+
+    <div id="app-container" class="app-container" style="display:none;">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+
+            <div class="brand">
+                <h2>TextileLearn</h2>
+                <p>Training Management</p>
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <a href="#dashboard" class="nav-link active">
+                    <span>Dashboard</span>
+                </a>
+
+                <a href="#programs" class="nav-link">
+                    <span>Training Programs</span>
+                </a>
+
+                <a href="#schedules" class="nav-link">
+                    <span>Training Schedules</span>
+                </a>
+
+                <a href="#participants" class="nav-link">
+                    <span>Participants</span>
+                </a>
+
+                <a href="#registration" class="nav-link">
+                    <span>Registration</span>
+                </a>
+
+                <a href="#attendance" class="nav-link">
+                    <span>QR & Attendance</span>
+                </a>
+
+                <a href="#assessment" class="nav-link">
+                    <span>Assessment</span>
+                </a>
+
+                <a href="#agency" class="nav-link">
+                    <span>Agency Management</span>
+                </a>
+
+                <a href="#governance" class="nav-link">
+                    <span>Governance</span>
+                </a>
+
+                <a href="#records" class="nav-link">
+                    <span>Completion Records</span>
+                </a>
+
+                <a href="#notifications" class="nav-link">
+                    <span>Notifications</span>
+                </a>
+
+                <a href="#reports" class="nav-link">
+                    <span>Reports</span>
+                </a>
+
+                <a href="#users" class="nav-link">
+                    <span>User Management</span>
+                </a>
+
+                <a href="#settings" class="nav-link">
+                    <span>Settings</span>
+                </a>
+
+            </nav>
+
+
+            <!-- SIDEBAR FOOTER AND LOGOUT BUTTON -->
+            <div class="sidebar-footer">
+
+                <button
+                    type="button"
+                    id="logout-button"
+                    class="logout-button"
+                >
+                    ↪ Logout
+                </button>
+
+                <p>TextileLearn System</p>
+                <small>Version 1.0</small>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT AREA -->
+        <main class="main-content">
+
+            <!-- TOP HEADER -->
+            <header class="top-header">
+
+                <div class="header-title">
+                    <h1 id="page-title">Dashboard</h1>
+
+                    <p id="page-description">
+                        Training activity overview
+                    </p>
+                </div>
+
+                <div class="header-user" id="header-user">
+                    <span>Welcome!</span>
+                </div>
+
+            </header>
+
+
+            <!-- DYNAMIC PAGE CONTENT -->
+            <section id="page-content" class="page-content">
+
+                <div class="content-card">
+                    <h2>Welcome to TextileLearn!</h2>
+
+                    <p>
+                        Your Training and Skills Management System.
+                    </p>
+                </div>
+
+            </section>
+
+
+            <!-- FOOTER -->
+            <footer class="main-footer">
+                <p>
+                    &copy; 2026 TextileLearn.
+                    Training and Skills Management System.
+                </p>
+            </footer>
+
+        </main>
+
+    </div>
+
+
+    <!-- JAVASCRIPT -->
+    <script src="script.js"></script>
+
+</body>
+</html>
